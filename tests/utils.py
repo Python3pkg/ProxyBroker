@@ -16,7 +16,7 @@ class AutoDecorateAsyncMeta(type):
                     loop.close()
             return inner
 
-        for k, v in _dict.items():
+        for k, v in list(_dict.items()):
             if k.startswith('test_') and asyncio.iscoroutinefunction(v):
                 setattr(self, k, _run(v))
         return type.__init__(self, name, bases, _dict)
